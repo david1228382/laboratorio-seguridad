@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Laboratorio Matrix</title>
+    <title>SISTEMA MATRIX - YOU ARE AN IDIOT</title>
     <style>
         * {
             margin: 0;
@@ -28,7 +28,7 @@
             z-index: 1;
         }
 
-        .overlay {
+        .capa-interfaz {
             position: absolute;
             top: 0;
             left: 0;
@@ -43,9 +43,9 @@
             color: #0f0;
         }
 
-        .btn-start {
-            padding: 15px 30px;
-            font-size: 1.2rem;
+        .btn-iniciar {
+            padding: 15px 35px;
+            font-size: 1.3rem;
             background-color: #0f0;
             color: #000;
             border: none;
@@ -56,17 +56,38 @@
             margin-top: 20px;
         }
 
-        .mensaje-idiot {
+        /* Contenedor de la broma */
+        .contenedor-idiot {
             display: none;
-            font-size: 2.5rem;
-            color: #fff;
-            text-shadow: 0 0 10px #ff0000, 0 0 20px #ff0000;
-            animation: blink 0.4s infinite alternate;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
         }
 
-        @keyframes blink {
-            from { opacity: 1; transform: scale(1); }
-            to { opacity: 0.3; transform: scale(1.05); }
+        /* Las 3 caritas con cuernos */
+        .caritas-container {
+            display: flex;
+            gap: 25px;
+            margin-bottom: 20px;
+        }
+
+        .carita-diablo {
+            width: 80px;
+            height: 80px;
+            animation: parpadeoColor 0.15s infinite alternate;
+        }
+
+        .alerta-texto {
+            font-size: 2.8rem;
+            color: #fff;
+            font-weight: bold;
+            text-shadow: 0 0 10px #ff0000, 0 0 20px #ff0000;
+            animation: parpadeoColor 0.15s infinite alternate;
+        }
+
+        @keyframes parpadeoColor {
+            0% { filter: invert(0); transform: scale(1); }
+            100% { filter: invert(1); transform: scale(1.08); }
         }
     </style>
 </head>
@@ -74,81 +95,109 @@
 
     <canvas id="matrixCanvas"></canvas>
 
-    <div class="overlay">
+    <div class="capa-interfaz">
         <h1 id="titulo">SISTEMA MATRIX</h1>
-        <p id="subtitulo">Presiona para conectar al servidor...</p>
-        <button class="btn-start" id="btnIniciar" onclick="iniciarEfecto()">CONECTAR</button>
-        <div class="mensaje-idiot" id="mensajeIdiot">
-            YOU ARE AN IDIOT!<br>HAHAHAHAHA
+        <p id="subtitulo">Presiona el botón para conectar...</p>
+        <button class="btn-iniciar" id="btnBoton" onclick="activarBroma()">INICIAR</button>
+        
+        <div class="contenedor-idiot" id="contenedorBroma">
+            <!-- 3 Caritas felices con cuernos SVG -->
+            <div class="caritas-container">
+                <!-- Carita 1 -->
+                <svg class="carita-diablo" viewBox="0 0 100 100">
+                    <path d="M 20 30 Q 10 5 35 20 Z" fill="#fff" />
+                    <path d="M 80 30 Q 90 5 65 20 Z" fill="#fff" />
+                    <circle cx="50" cy="55" r="40" fill="#fff" stroke="#000" stroke-width="4" />
+                    <circle cx="35" cy="45" r="6" fill="#000" />
+                    <circle cx="65" cy="45" r="6" fill="#000" />
+                    <path d="M 25 60 Q 50 85 75 60 Z" fill="#000" />
+                </svg>
+
+                <!-- Carita 2 -->
+                <svg class="carita-diablo" viewBox="0 0 100 100">
+                    <path d="M 20 30 Q 10 5 35 20 Z" fill="#fff" />
+                    <path d="M 80 30 Q 90 5 65 20 Z" fill="#fff" />
+                    <circle cx="50" cy="55" r="40" fill="#fff" stroke="#000" stroke-width="4" />
+                    <circle cx="35" cy="45" r="6" fill="#000" />
+                    <circle cx="65" cy="45" r="6" fill="#000" />
+                    <path d="M 25 60 Q 50 85 75 60 Z" fill="#000" />
+                </svg>
+
+                <!-- Carita 3 -->
+                <svg class="carita-diablo" viewBox="0 0 100 100">
+                    <path d="M 20 30 Q 10 5 35 20 Z" fill="#fff" />
+                    <path d="M 80 30 Q 90 5 65 20 Z" fill="#fff" />
+                    <circle cx="50" cy="55" r="40" fill="#fff" stroke="#000" stroke-width="4" />
+                    <circle cx="35" cy="45" r="6" fill="#000" />
+                    <circle cx="65" cy="45" r="6" fill="#000" />
+                    <path d="M 25 60 Q 50 85 75 60 Z" fill="#000" />
+                </svg>
+            </div>
+
+            <div class="alerta-texto">
+                YOU ARE AN IDIOT!<br>HAHAHAHAHA
+            </div>
         </div>
     </div>
 
+    <!-- Audio MP3 Original del Malware -->
+    <audio id="audioOriginal" loop preload="auto">
+        <source src="https://myinstants.org/media/sounds/you-are-an-idiot.mp3" type="audio/mpeg">
+    </audio>
+
     <script>
+        // Lluvia Verde Matrix
         const canvas = document.getElementById('matrixCanvas');
         const ctx = canvas.getContext('2d');
 
-        function resizeCanvas() {
+        function ajustarTamano() {
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;
         }
-        resizeCanvas();
-        window.addEventListener('resize', resizeCanvas);
+        ajustarTamano();
+        window.addEventListener('resize', ajustarTamano);
 
-        const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%^&*()*&^%';
-        const fontSize = 16;
-        let columns = Math.floor(canvas.width / fontSize);
-        let drops = Array(columns).fill(1);
+        const letras = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%^&*()';
+        const tamanoFuente = 16;
+        let columnas = Math.floor(canvas.width / tamanoFuente);
+        let gotas = Array(columnas).fill(1);
 
-        function drawMatrix() {
+        function renderMatrix() {
             ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
             ctx.fillRect(0, 0, canvas.width, canvas.height);
-
             ctx.fillStyle = '#0f0';
-            ctx.font = fontSize + 'px monospace';
+            ctx.font = tamanoFuente + 'px monospace';
 
-            for (let i = 0; i < drops.length; i++) {
-                const text = characters.charAt(Math.floor(Math.random() * characters.length));
-                ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+            for (let i = 0; i < gotas.length; i++) {
+                const char = letras[Math.floor(Math.random() * letras.length)];
+                ctx.fillText(char, i * tamanoFuente, gotas[i] * tamanoFuente);
 
-                if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
-                    drops[i] = 0;
+                if (gotas[i] * tamanoFuente > canvas.height && Math.random() > 0.975) {
+                    gotas[i] = 0;
                 }
-                drops[i]++;
+                gotas[i]++;
             }
         }
 
-        setInterval(drawMatrix, 33);
+        setInterval(renderMatrix, 33);
 
-        function reproducirAudioBucle() {
-            if ('speechSynthesis' in window) {
-                window.speechSynthesis.cancel();
-                
-                const hablar = () => {
-                    const mensaje = new SpeechSynthesisUtterance("You are an idiot, ha ha ha ha ha");
-                    mensaje.lang = 'en-US';
-                    mensaje.rate = 1.1;
-                    mensaje.pitch = 1.2;
-                    
-                    mensaje.onend = () => {
-                        setTimeout(hablar, 100);
-                    };
+        function activarBroma() {
+            const audio = document.getElementById('audioOriginal');
+            
+            // Habilitar permisos de audio al hacer clic
+            audio.play().then(() => {
+                audio.pause();
+                audio.currentTime = 0;
+            }).catch(e => console.log(e));
 
-                    window.speechSynthesis.speak(mensaje);
-                };
-
-                hablar();
-            }
-        }
-
-        function iniciarEfecto() {
-            document.getElementById('btnIniciar').style.display = 'none';
+            document.getElementById('btnBoton').style.display = 'none';
             document.getElementById('titulo').style.display = 'none';
-            document.getElementById('subtitulo').innerText = "Cargando...";
+            document.getElementById('subtitulo').innerText = "Cargando acceso...";
 
             setTimeout(() => {
                 document.getElementById('subtitulo').style.display = 'none';
-                document.getElementById('mensajeIdiot').style.display = 'block';
-                reproducirAudioBucle();
+                document.getElementById('contenedorBroma').style.display = 'flex';
+                audio.play();
             }, 3000);
         }
     </script>
