@@ -58,7 +58,7 @@
             letter-spacing: 3px;
         }
 
-        /* Jumpscare de Momo Satánico */
+        /* Jumpscare Satánico Integrado */
         #jumpscareContainer {
             display: none;
             position: fixed;
@@ -72,12 +72,11 @@
             align-items: center;
         }
 
-        #imgMomo {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            filter: contrast(350%) brightness(60%) sepia(100%) hue-rotate(-50deg) drop-shadow(0 0 40px #ff0000);
-            animation: zoomSatanico 0.06s infinite alternate;
+        .momo-svg {
+            width: 85vw;
+            height: 85vh;
+            filter: contrast(300%) drop-shadow(0 0 50px #ff0000);
+            animation: zoomSatanico 0.05s infinite alternate;
         }
 
         .shake {
@@ -85,8 +84,8 @@
         }
 
         @keyframes zoomSatanico {
-            0% { transform: scale(1.1); }
-            100% { transform: scale(1.4) rotate(3deg); }
+            0% { transform: scale(1); }
+            100% { transform: scale(1.35) rotate(2deg); }
         }
 
         @keyframes sacudidaInfernal {
@@ -96,7 +95,7 @@
 
         @keyframes flashSanguineo {
             0% { background-color: #000; }
-            50% { background-color: #700; }
+            50% { background-color: #800; }
             100% { background-color: #000; }
         }
 
@@ -146,7 +145,6 @@
         
         <div class="contenedor-idiot" id="contenedorBroma">
             <div class="caritas-container">
-                <!-- Carita Satánica 1 -->
                 <svg class="carita-diablo" viewBox="0 0 100 100">
                     <path d="M 15 35 Q 0 -5 35 15 Z" fill="#ff0000" />
                     <path d="M 85 35 Q 100 -5 65 15 Z" fill="#ff0000" />
@@ -155,7 +153,6 @@
                     <circle cx="65" cy="45" r="7" fill="#ff0000" />
                     <path d="M 25 70 Q 50 40 75 70 Z" fill="#ff0000" />
                 </svg>
-                <!-- Carita Satánica 2 -->
                 <svg class="carita-diablo" viewBox="0 0 100 100">
                     <path d="M 15 35 Q 0 -5 35 15 Z" fill="#ff0000" />
                     <path d="M 85 35 Q 100 -5 65 15 Z" fill="#ff0000" />
@@ -164,7 +161,6 @@
                     <circle cx="65" cy="45" r="7" fill="#ff0000" />
                     <path d="M 25 70 Q 50 40 75 70 Z" fill="#ff0000" />
                 </svg>
-                <!-- Carita Satánica 3 -->
                 <svg class="carita-diablo" viewBox="0 0 100 100">
                     <path d="M 15 35 Q 0 -5 35 15 Z" fill="#ff0000" />
                     <path d="M 85 35 Q 100 -5 65 15 Z" fill="#ff0000" />
@@ -181,18 +177,30 @@
         </div>
     </div>
 
-    <!-- Jumpscare -->
+    <!-- Jumpscare Integrado SVG Satánico -->
     <div id="jumpscareContainer" class="shake">
-        <img id="imgMomo" src="momo.jpg" alt="Momo Satánico">
+        <svg class="momo-svg" viewBox="0 0 200 200">
+            <!-- Cabeza Espectral -->
+            <ellipse cx="100" cy="100" rx="70" ry="85" fill="#000" stroke="#ff0000" stroke-width="4"/>
+            <!-- Ojos Abultados Siniestros -->
+            <circle cx="65" cy="85" r="28" fill="#fff" stroke="#ff0000" stroke-width="3"/>
+            <circle cx="135" cy="85" r="28" fill="#fff" stroke="#ff0000" stroke-width="3"/>
+            <circle cx="65" cy="85" r="8" fill="#000"/>
+            <circle cx="135" cy="85" r="8" fill="#000"/>
+            <circle cx="68" cy="82" r="3" fill="#ff0000"/>
+            <circle cx="138" cy="82" r="3" fill="#ff0000"/>
+            <!-- Sonrisa Macabra Extendida de Momo -->
+            <path d="M 20 125 Q 100 185 180 125" fill="none" stroke="#ff0000" stroke-width="6"/>
+            <path d="M 25 125 Q 100 160 175 125" fill="#000"/>
+            <path d="M 20 120 L 35 130 M 180 120 L 165 130" stroke="#ff0000" stroke-width="4"/>
+        </svg>
     </div>
 
-    <!-- Audio MP3 original e intacto -->
     <audio id="audioMp3" loop preload="auto">
         <source src="idiot.mp3" type="audio/mpeg">
     </audio>
 
     <script>
-        // Lluvia Matrix de Sangre con Símbolos
         const canvas = document.getElementById('matrixCanvas');
         const ctx = canvas.getContext('2d');
 
@@ -203,7 +211,7 @@
         ajustarTamano();
         window.addEventListener('resize', ajustarTamano);
 
-        const simbolos = '☠︎︎⛧⸸666⸸⛧☠︎ABCDEFGHIJKLMOPQRSTUVWXYZ@#$%&*()';
+        const simbolos = '☠⛧⸸666⸸⛧☠︎ABCDEFGHIJKLMOPQRSTUVWXYZ@#$%&*()';
         const tamanoFuente = 18;
         let columnas = Math.floor(canvas.width / tamanoFuente);
         let gotas = Array(columnas).fill(1);
