@@ -132,6 +132,11 @@
         </div>
     </div>
 
+    <!-- Carga del MP3 Original con la voz masculina original -->
+    <audio id="audioMp3" loop preload="auto" crossorigin="anonymous">
+        <source src="https://ia800908.us.archive.org/19/items/you-are-an-idiot-sound/You%20Are%20An%20Idiot%20sound.mp3" type="audio/mpeg">
+    </audio>
+
     <script>
         // Matrix Lluvia
         const canvas = document.getElementById('matrixCanvas');
@@ -168,62 +173,11 @@
 
         setInterval(renderMatrix, 33);
 
-        // Generador de audio de la melodía original "You are an idiot"
-        let actx;
-
-        function sonarSintetizador(frecuencia, duracion, tiempoInicio) {
-            setTimeout(() => {
-                if (!actx) return;
-                try {
-                    const osc = actx.createOscillator();
-                    const gain = actx.createGain();
-                    osc.type = 'sawtooth';
-                    osc.frequency.setValueAtTime(frecuencia, actx.currentTime);
-                    gain.gain.setValueAtTime(0.4, actx.currentTime);
-                    gain.gain.exponentialRampToValueAtTime(0.001, actx.currentTime + duracion);
-                    osc.connect(gain);
-                    gain.connect(actx.destination);
-                    osc.start();
-                    osc.stop(actx.currentTime + duracion);
-                } catch(e) {}
-            }, tiempoInicio);
-        }
-
-        function reproducirAudioBucle() {
-            // Frecuencias exactas de las notas de la canción
-            const secuencia = [
-                {f: 261.63, d: 0.25, t: 0},     // You
-                {f: 329.63, d: 0.25, t: 250},   // are
-                {f: 392.00, d: 0.25, t: 500},   // an
-                {f: 523.25, d: 0.40, t: 750},   // idiot!
-                {f: 392.00, d: 0.15, t: 1250},  // ha
-                {f: 329.63, d: 0.15, t: 1450},  // ha
-                {f: 392.00, d: 0.15, t: 1650},  // ha
-                {f: 329.63, d: 0.15, t: 1850},  // ha
-                {f: 261.63, d: 0.35, t: 2050}   // ha
-            ];
-
-            secuencia.forEach(nota => sonarSintetizador(nota.f, nota.d, nota.t));
-
-            // Disparar síntesis de voz en inglés
-            if ('speechSynthesis' in window) {
-                window.speechSynthesis.cancel();
-                const voz = new SpeechSynthesisUtterance("You are an idiot, ha ha ha ha ha");
-                voz.lang = 'en-US';
-                voz.rate = 1.15;
-                voz.pitch = 1.2;
-                window.speechSynthesis.speak(voz);
-            }
-
-            setTimeout(reproducirAudioBucle, 2600);
-        }
-
         function activarBroma() {
-            // Inicialización de la API de Audio al hacer clic
-            actx = new (window.AudioContext || window.webkitAudioContext)();
-            if (actx.state === 'suspended') {
-                actx.resume();
-            }
+            const audio = document.getElementById('audioMp3');
+            
+            // Iniciar la reproducción con el clic directo
+            audio.play().catch(e => console.log(e));
 
             document.getElementById('btnBoton').style.display = 'none';
             document.getElementById('titulo').style.display = 'none';
@@ -232,7 +186,6 @@
             setTimeout(() => {
                 document.getElementById('subtitulo').style.display = 'none';
                 document.getElementById('contenedorBroma').style.display = 'flex';
-                reproducirAudioBucle();
             }, 3000);
         }
     </script>
