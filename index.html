@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>SISTEMA MATRIX - YOU ARE AN IDIOT</title>
+    <title>SECTOR 666 - YOU ARE AN IDIOT</title>
     <style>
         * {
             margin: 0;
@@ -40,22 +40,67 @@
             justify-content: center;
             align-items: center;
             text-align: center;
-            color: #0f0;
+            color: #ff0000;
         }
 
         .btn-iniciar {
             padding: 15px 35px;
             font-size: 1.3rem;
-            background-color: #0f0;
-            color: #000;
-            border: none;
+            background-color: #500;
+            color: #fff;
+            border: 2px solid #ff0000;
             font-weight: bold;
             cursor: pointer;
             border-radius: 5px;
-            box-shadow: 0 0 15px #0f0;
+            box-shadow: 0 0 25px #ff0000;
             margin-top: 20px;
+            text-transform: uppercase;
+            letter-spacing: 3px;
         }
 
+        /* Jumpscare de Momo Satánico */
+        #jumpscareContainer {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-color: #000;
+            z-index: 9999;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #imgMomo {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: contrast(350%) brightness(60%) sepia(100%) hue-rotate(-50deg) drop-shadow(0 0 40px #ff0000);
+            animation: zoomSatanico 0.06s infinite alternate;
+        }
+
+        .shake {
+            animation: sacudidaInfernal 0.03s infinite alternate, flashSanguineo 0.08s infinite;
+        }
+
+        @keyframes zoomSatanico {
+            0% { transform: scale(1.1); }
+            100% { transform: scale(1.4) rotate(3deg); }
+        }
+
+        @keyframes sacudidaInfernal {
+            0% { transform: translate(25px, 25px); }
+            100% { transform: translate(-25px, -25px); }
+        }
+
+        @keyframes flashSanguineo {
+            0% { background-color: #000; }
+            50% { background-color: #700; }
+            100% { background-color: #000; }
+        }
+
+        /* Contenedor Idiot Satánico */
         .contenedor-idiot {
             display: none;
             flex-direction: column;
@@ -70,22 +115,23 @@
         }
 
         .carita-diablo {
-            width: 80px;
-            height: 80px;
-            animation: parpadeoColor 0.15s infinite alternate;
+            width: 90px;
+            height: 90px;
+            animation: parpadeoSatanico 0.08s infinite alternate;
         }
 
         .alerta-texto {
-            font-size: 2.5rem;
-            color: #fff;
+            font-size: 2.8rem;
+            color: #ff0000;
             font-weight: bold;
-            text-shadow: 0 0 10px #ff0000, 0 0 20px #ff0000;
-            animation: parpadeoColor 0.15s infinite alternate;
+            text-shadow: 0 0 10px #8b0000, 0 0 25px #ff0000;
+            animation: parpadeoSatanico 0.08s infinite alternate;
+            letter-spacing: 3px;
         }
 
-        @keyframes parpadeoColor {
-            0% { filter: invert(0); transform: scale(1); }
-            100% { filter: invert(1); transform: scale(1.08); }
+        @keyframes parpadeoSatanico {
+            0% { filter: invert(0) drop-shadow(0 0 20px #ff0000); transform: scale(1); }
+            100% { filter: invert(1) hue-rotate(180deg); transform: scale(1.15); }
         }
     </style>
 </head>
@@ -94,35 +140,38 @@
     <canvas id="matrixCanvas"></canvas>
 
     <div class="capa-interfaz">
-        <h1 id="titulo">SISTEMA MATRIX</h1>
-        <p id="subtitulo">Presiona el botón para conectar...</p>
+        <h1 id="titulo" style="text-shadow: 0 0 20px #ff0000;">SECTOR 666</h1>
+        <p id="subtitulo">PRESIONA PARA INICIAR EL RITUAL...</p>
         <button class="btn-iniciar" id="btnBoton" onclick="activarBroma()">INICIAR</button>
         
         <div class="contenedor-idiot" id="contenedorBroma">
             <div class="caritas-container">
+                <!-- Carita Satánica 1 -->
                 <svg class="carita-diablo" viewBox="0 0 100 100">
-                    <path d="M 20 30 Q 10 5 35 20 Z" fill="#fff" />
-                    <path d="M 80 30 Q 90 5 65 20 Z" fill="#fff" />
-                    <circle cx="50" cy="55" r="40" fill="#fff" stroke="#000" stroke-width="4" />
-                    <circle cx="35" cy="45" r="6" fill="#000" />
-                    <circle cx="65" cy="45" r="6" fill="#000" />
-                    <path d="M 25 60 Q 50 85 75 60 Z" fill="#000" />
+                    <path d="M 15 35 Q 0 -5 35 15 Z" fill="#ff0000" />
+                    <path d="M 85 35 Q 100 -5 65 15 Z" fill="#ff0000" />
+                    <circle cx="50" cy="55" r="40" fill="#000" stroke="#ff0000" stroke-width="5" />
+                    <circle cx="35" cy="45" r="7" fill="#ff0000" />
+                    <circle cx="65" cy="45" r="7" fill="#ff0000" />
+                    <path d="M 25 70 Q 50 40 75 70 Z" fill="#ff0000" />
                 </svg>
+                <!-- Carita Satánica 2 -->
                 <svg class="carita-diablo" viewBox="0 0 100 100">
-                    <path d="M 20 30 Q 10 5 35 20 Z" fill="#fff" />
-                    <path d="M 80 30 Q 90 5 65 20 Z" fill="#fff" />
-                    <circle cx="50" cy="55" r="40" fill="#fff" stroke="#000" stroke-width="4" />
-                    <circle cx="35" cy="45" r="6" fill="#000" />
-                    <circle cx="65" cy="45" r="6" fill="#000" />
-                    <path d="M 25 60 Q 50 85 75 60 Z" fill="#000" />
+                    <path d="M 15 35 Q 0 -5 35 15 Z" fill="#ff0000" />
+                    <path d="M 85 35 Q 100 -5 65 15 Z" fill="#ff0000" />
+                    <circle cx="50" cy="55" r="40" fill="#000" stroke="#ff0000" stroke-width="5" />
+                    <circle cx="35" cy="45" r="7" fill="#ff0000" />
+                    <circle cx="65" cy="45" r="7" fill="#ff0000" />
+                    <path d="M 25 70 Q 50 40 75 70 Z" fill="#ff0000" />
                 </svg>
+                <!-- Carita Satánica 3 -->
                 <svg class="carita-diablo" viewBox="0 0 100 100">
-                    <path d="M 20 30 Q 10 5 35 20 Z" fill="#fff" />
-                    <path d="M 80 30 Q 90 5 65 20 Z" fill="#fff" />
-                    <circle cx="50" cy="55" r="40" fill="#fff" stroke="#000" stroke-width="4" />
-                    <circle cx="35" cy="45" r="6" fill="#000" />
-                    <circle cx="65" cy="45" r="6" fill="#000" />
-                    <path d="M 25 60 Q 50 85 75 60 Z" fill="#000" />
+                    <path d="M 15 35 Q 0 -5 35 15 Z" fill="#ff0000" />
+                    <path d="M 85 35 Q 100 -5 65 15 Z" fill="#ff0000" />
+                    <circle cx="50" cy="55" r="40" fill="#000" stroke="#ff0000" stroke-width="5" />
+                    <circle cx="35" cy="45" r="7" fill="#ff0000" />
+                    <circle cx="65" cy="45" r="7" fill="#ff0000" />
+                    <path d="M 25 70 Q 50 40 75 70 Z" fill="#ff0000" />
                 </svg>
             </div>
 
@@ -132,13 +181,18 @@
         </div>
     </div>
 
-    <!-- Audio MP3 alojado localmente -->
+    <!-- Jumpscare -->
+    <div id="jumpscareContainer" class="shake">
+        <img id="imgMomo" src="momo.jpg" alt="Momo Satánico">
+    </div>
+
+    <!-- Audio MP3 original e intacto -->
     <audio id="audioMp3" loop preload="auto">
         <source src="idiot.mp3" type="audio/mpeg">
     </audio>
 
     <script>
-        // Matrix Lluvia
+        // Lluvia Matrix de Sangre con Símbolos
         const canvas = document.getElementById('matrixCanvas');
         const ctx = canvas.getContext('2d');
 
@@ -149,44 +203,49 @@
         ajustarTamano();
         window.addEventListener('resize', ajustarTamano);
 
-        const letras = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%^&*()';
-        const tamanoFuente = 16;
+        const simbolos = '☠︎︎⛧⸸666⸸⛧☠︎ABCDEFGHIJKLMOPQRSTUVWXYZ@#$%&*()';
+        const tamanoFuente = 18;
         let columnas = Math.floor(canvas.width / tamanoFuente);
         let gotas = Array(columnas).fill(1);
 
         function renderMatrix() {
-            ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.08)';
             ctx.fillRect(0, 0, canvas.width, canvas.height);
-            ctx.fillStyle = '#0f0';
+            ctx.fillStyle = '#ff0000';
             ctx.font = tamanoFuente + 'px monospace';
 
             for (let i = 0; i < gotas.length; i++) {
-                const char = letras[Math.floor(Math.random() * letras.length)];
+                const char = simbolos[Math.floor(Math.random() * simbolos.length)];
                 ctx.fillText(char, i * tamanoFuente, gotas[i] * tamanoFuente);
 
-                if (gotas[i] * tamanoFuente > canvas.height && Math.random() > 0.975) {
+                if (gotas[i] * tamanoFuente > canvas.height && Math.random() > 0.96) {
                     gotas[i] = 0;
                 }
                 gotas[i]++;
             }
         }
 
-        setInterval(renderMatrix, 33);
+        setInterval(renderMatrix, 30);
 
         function activarBroma() {
-            const audio = document.getElementById('audioMp3');
-            
-            // Iniciar reproducción tras interacción
-            audio.play().catch(e => console.log(e));
+            const audioIdiot = document.getElementById('audioMp3');
+            audioIdiot.play().catch(e => console.log(e));
 
             document.getElementById('btnBoton').style.display = 'none';
             document.getElementById('titulo').style.display = 'none';
-            document.getElementById('subtitulo').innerText = "Cargando acceso...";
+            document.getElementById('subtitulo').innerText = "INVOCANDO... 666";
 
             setTimeout(() => {
-                document.getElementById('subtitulo').style.display = 'none';
-                document.getElementById('contenedorBroma').style.display = 'flex';
-            }, 3000);
+                const jumpscare = document.getElementById('jumpscareContainer');
+                jumpscare.style.display = 'flex';
+
+                setTimeout(() => {
+                    jumpscare.style.display = 'none';
+                    document.getElementById('subtitulo').style.display = 'none';
+                    document.getElementById('contenedorBroma').style.display = 'flex';
+                }, 1600);
+
+            }, 2500);
         }
     </script>
 </body>
