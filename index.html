@@ -1,65 +1,75 @@
+HTML
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Laboratorio de Ciberseguridad</title>
+    <title>Laboratorio de Seguridad</title>
     <style>
         body {
-            background-color: #121212;
-            color: #ffffff;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-        }
-        .container {
+            font-family: Arial, sans-serif;
             text-align: center;
-            background-color: #1e1e1e;
-            padding: 40px;
-            border-radius: 12px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
-            border: 1px solid #333;
-            max-width: 400px;
+            margin: 0;
+            padding: 20px;
+            background-color: #111;
+            color: #fff;
         }
-        h1 {
-            color: #ff3333;
-            font-size: 24px;
-            margin-bottom: 10px;
+
+        /* Clase para congelar la pantalla */
+        .bloqueado {
+            overflow: hidden !important;
+            touch-action: none !important;
+            pointer-events: none !important;
         }
-        p {
-            color: #aaaaaa;
-            font-size: 14px;
-            line-height: 1.6;
-        }
-        .btn-test {
-            background-color: #ff3333;
-            color: white;
-            border: none;
-            padding: 12px 24px;
-            font-size: 16px;
+
+        .alerta {
+            display: none;
+            margin-top: 50px;
+            color: #ff0000;
+            font-size: 2em;
             font-weight: bold;
-            border-radius: 6px;
-            cursor: pointer;
-            transition: background 0.3s, transform 0.2s;
-            margin-top: 20px;
-            width: 100%;
-        }
-        .btn-test:hover {
-            background-color: #cc0000;
-            transform: scale(1.02);
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Alerta de Seguridad</h1>
-        <p>Esta es una simulación controlada y ética de ciberseguridad para comprobar la eficacia de los sistemas antivirus en tiempo real.</p>
-        <a href="virus_falso.txt" download="test_file.txt">
-            <button class="btn-test">Descargar Archivo EICAR</button>
-        </a>
+
+    <h1>Página de Prueba</h1>
+    <p>Navega normalmente por el contenido...</p>
+    
+    <!-- Contenido largo para probar el bloqueo del scroll -->
+    <div style="height: 1500px; background: linear-gradient(#222, #444); margin-top: 20px;">
+        <p style="padding-top: 50px;">Desplázate hacia abajo...</p>
     </div>
+
+    <div id="mensajeAlerta" class="alerta">
+        ⚠️ ¡SISTEMA BLOQUEADO! ⚠️
+    </div>
+
+    <script>
+        // Función que ejecuta el audio mediante síntesis de voz
+        function decirMensaje(texto) {
+            if ('speechSynthesis' in window) {
+                const mensaje = new SpeechSynthesisUtterance(texto);
+                mensaje.lang = 'es-ES';
+                mensaje.rate = 0.9; // Velocidad un poco más lenta para dar efecto
+                mensaje.pitch = 0.8; // Tono más grave
+                window.speechSynthesis.speak(mensaje);
+            }
+        }
+
+        // Temporizador de 3 segundos (3000 ms)
+        setTimeout(() => {
+            // 1. Bloquear el scroll y la interacción en la pantalla
+            document.body.classList.add('bloqueado');
+            document.addEventListener('touchmove', (e) => e.preventDefault(), { passive: false });
+            document.addEventListener('wheel', (e) => e.preventDefault(), { passive: false });
+
+            // 2. Reproducir el sonido por voz
+            decirMensaje("Fuiste hackeado");
+
+            // 3. Mostrar la alerta en pantalla
+            document.getElementById('mensajeAlerta').style.display = 'block';
+        }, 3000);
+    </script>
 </body>
 </html>
