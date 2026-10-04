@@ -3,124 +3,280 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Laboratorio de Seguridad</title>
+    <title>Laboratorio Matrix</title>
     <style>
-        html, body {
+        * {
             margin: 0;
             padding: 0;
-            width: 100%;
-            height: 100%;
-            font-family: Arial, sans-serif;
-            background-color: #111;
-            color: #fff;
-            text-align: center;
+            box-sizing: border-box;
         }
 
-        .contenedor {
+        body {
+            background-color: #000;
+            overflow: hidden;
+            font-family: 'Courier New', Courier, monospace;
+        }
+
+        /* Lienzo para la animación Matrix */
+        #matrixCanvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: 1;
+        }
+
+        /* Capa de la interfaz principal */
+        .ui-layer {
+            position: relative;
+            z-index: 2;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            color: #0f0;
+            text-align: center;
             padding: 20px;
         }
 
         .btn-iniciar {
             padding: 15px 30px;
             font-size: 1.2em;
-            background-color: #007bff;
-            color: white;
+            background-color: #00ff00;
+            color: #000;
+            font-weight: bold;
             border: none;
-            border-radius: 8px;
+            border-radius: 5px;
             cursor: pointer;
-            margin-top: 50px;
+            box-shadow: 0 0 15px #00ff00;
+            margin-top: 20px;
         }
 
-        /* Estilos cuando la pantalla se bloquea */
+        /* Estado bloqueado */
         body.bloqueado {
-            overflow: hidden !important;
-            position: fixed !important;
-            width: 100% !important;
-            height: 100% !important;
             touch-action: none !important;
             pointer-events: none !important;
-            background-color: #000 !important;
         }
 
-        .alerta {
+        .alerta-texto {
             display: none;
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
             color: #ff0000;
-            font-size: 2em;
+            font-size: 2.5em;
             font-weight: bold;
-            z-index: 9999;
-            width: 90%;
+            text-shadow: 0 0 10px #ff0000;
+            animation: parpadeo 0.5s infinite alternate;
+        }
+
+        @keyframes parpadeo {
+            from { opacity: 1; }
+            to { opacity: 0.2; }
         }
     </style>
 </head>
 <body>
 
-    <div class="contenedor" id="contenido">
-        <h1>Laboratorio de Seguridad</h1>
-        <p>Presiona el botón para cargar el contenido del laboratorio.</p>
-        <button class="btn-iniciar" onclick="iniciarPrueba()">Cargar Contenido</button>
-        
-        <div style="height: 1500px; background: linear-gradient(#222, #444); margin-top: 30px;">
-            <p style="padding-top: 20px;">Desplázate hacia abajo...</p>
+    <canvas id="matrixCanvas"></canvas>
+
+    <div class="ui-layer" id="interfaz">
+        <h1 id="titulo">SISTEMA MATRIX</h1>
+        <p id="subtitulo">Presiona el botón para iniciar el análisis...</p>
+        <button class="btn-iniciar" id="btnAccion" onclick="iniciarEfecto()">INICIAR</button>
+        <div id="mensajeInfeccion" class="alerta-texto">
+            YOU ARE AN IDIOT! <br> JAJAJA
         </div>
     </div>
 
-    <div id="mensajeAlerta" class="alerta">
-        ⚠️ ¡SISTEMA BLOQUEADO! ⚠️
-        <p style="font-size: 0.6em; color: white; margin-top: 10px;">Fuiste hackeado</p>
+    <script>
+        // --- Animación Lluvia Matrix ---
+        const canvas = document.getElementById('matrixCanvas');
+        const ctx = canvas.getContext('2d');
+
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        const letras = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%^&*()*&^%';
+        const fontSize = 16;
+        const columnas = Math.floor(canvas.width / fontSize);
+        const gotas = Array(columnas).fill(1);
+
+        function dibujarMatrix() {
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            ctx.fillStyle = '#0F0';
+            ctx.font = fontSize + 'px monospace';
+
+            for (let i = 0; i < gotas.length; i++) {
+                const texto = letras.charAt(Math.floor(Math.random() * letras.length));
+                ctx.fillText(texto, i * fontSize, gotas[i] * fontSize);
+
+                if (gotas[iPara crear una página con el clásico fondo verde con código descendente al estilo **Matrix**, que al cabo de unos segundos (o tras tocar la pantalla para permitir el audio) empiece a reproducir la melodía/audio característico con el mensaje *"You are an idiot"*, puedes actualizar tu archivo `index.html` con la estructura base en HTML, CSS y JavaScript.
+
+El efecto de lluvia de Matrix se crea utilizando un elemento `<canvas>` que dibuja caracteres en verde sobre fondo negro, mientras que el audio se reproduce en bucle con el temporizador mediante la API de audio de JavaScript.
+
+### Código para tu `index.html`
+
+```html
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>System Access</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body, html {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            background-color: #000;
+            font-family: monospace;
+        }
+
+        /* Canvas de Matrix */
+        #matrixCanvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+
+        /* Superposición con texto y alerta */
+        .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 2;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: #0f0;
+            pointer-events: none;
+        }
+
+        .btn-start {
+            pointer-events: auto;
+            padding: 15px 30px;
+            font-size: 1.2rem;
+            background-color: #0f0;
+            color: #000;
+            border: none;
+            font-weight: bold;
+            cursor: pointer;
+            border-radius: 5px;
+            box-shadow: 0 0 15px #0f0;
+            margin-top: 20px;
+        }
+
+        .mensaje-idiot {
+            display: none;
+            font-size: 3rem;
+            color: #fff;
+            text-shadow: 0 0 10px #ff0000, 0 0 20px #ff0000;
+            animation: blink 0.5s infinite alternate;
+        }
+
+        @keyframes blink {
+            from { opacity: 1; transform: scale(1); }
+            to { opacity: 0.7; transform: scale(1.05); }
+        }
+    </style>
+</head>
+<body>
+
+    <canvas id="matrixCanvas"></canvas>
+
+    <div class="overlay" id="overlay">
+        <h1 id="titulo">SISTEMA INICIALIZADO</h1>
+        <p id="subtitulo">Toca el botón para conectar al nodo...</p>
+        <button class="btn-start" id="btnIniciar" onclick="iniciarEfecto()">CONECTAR</button>
+        <div class="mensaje-idiot" id="mensajeIdiot">
+            YOU ARE AN IDIOT!<br>HAHAHAHAHA
+        </div>
     </div>
 
     <script>
-        function prevenirScroll(e) {
-            e.preventDefault();
+        // Configuración del efecto Matrix
+        const canvas = document.getElementById('matrixCanvas');
+        const ctx = canvas.getContext('2d');
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        resizeCanvas();
+        window.addEventListener('resize', resizeCanvas);
+
+        const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%^&*()*&^%';
+        const fontSize = 16;
+        let columns = Math.floor(canvas.width / fontSize);
+        let drops = Array(columns).fill(1);
+
+        function drawMatrix() {
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            ctx.fillStyle = '#0f0';
+            ctx.font = fontSize + 'px monospace';
+
+            for (let i = 0; i < drops.length; i++) {
+                const text = characters.charAt(Math.floor(Math.random() * characters.length));
+                ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+
+                if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+                    drops[i] = 0;
+                }
+                drops[i]++;
+            }
         }
 
-        function hablar() {
+        setInterval(drawMatrix, 33);
+
+        // Reproductor de voz/audio sintetizado ("You are an idiot")
+        function reproducirRisa() {
             if ('speechSynthesis' in window) {
-                window.speechSynthesis.cancel(); // Limpiar lecturas pendientes
-                const mensaje = new SpeechSynthesisUtterance("Fuiste hackeado");
-                mensaje.lang = 'es-ES';
-                mensaje.rate = 0.8;
-                mensaje.pitch = 0.7;
+                const mensaje = new SpeechSynthesisUtterance("You are an idiot, ha ha ha ha ha");
+                mensaje.lang = 'en-US';
+                mensaje.rate = 1.0;
+                mensaje.pitch = 1.2;
+                
+                // Bucle de voz al finalizar
+                mensaje.onend = function() {
+                    setTimeout(() => {
+                        window.speechSynthesis.speak(mensaje);
+                    }, 200);
+                };
+                
                 window.speechSynthesis.speak(mensaje);
             }
         }
 
-        function sonarSiren() {
-            // Generar tono de alarma sintetizado
-            try {
-                const ctx = new (window.AudioContext || window.webkitAudioContext)();
-                const osc = ctx.createOscillator();
-                const gain = ctx.createGain();
-                osc.type = 'sawtooth';
-                osc.frequency.setValueAtTime(800, ctx.currentTime);
-                osc.frequency.exponentialRampToValueAtTime(400, ctx.currentTime + 0.5);
-                osc.connect(gain);
-                gain.connect(ctx.destination);
-                osc.start();
-                osc.stop(ctx.currentTime + 0.5);
-            } catch(e) {}
-        }
+        function iniciarEfecto() {
+            // Ocultar botón de inicio
+            document.getElementById('btnIniciar').style.display = 'none';
+            document.getElementById('titulo').style.display = 'none';
+            document.getElementById('subtitulo').innerText = "Iniciando secuencia...";
 
-        function iniciarPrueba() {
-            alert("Cargando laboratorio...");
-            
+            // Esperar 3 segundos para activar la broma
             setTimeout(() => {
-                // 1. Bloquear desplazamiento y pantalla
-                document.body.classList.add('bloqueado');
-                window.addEventListener('touchmove', prevenirScroll, { passive: false });
-                window.addEventListener('wheel', prevenirScroll, { passive: false });
+                document.getElementById('subtitulo').style.display = 'none';
+                document.getElementById('mensajeIdiot').style.display = 'block';
                 
-                // 2. Ejecutar sonido y voz
-                sonarSiren();
-                hablar();
-
-                // 3. Mostrar alerta visual
-                document.getElementById('contenido').style.display = 'none';
-                document.getElementById('mensajeAlerta').style.display = 'block';
+                // Activar audio
+                reproducirRisa();
             }, 3000);
         }
     </script>
