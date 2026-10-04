@@ -2,129 +2,8 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Laboratorio Matrix</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            background-color: #000;
-            overflow: hidden;
-            font-family: 'Courier New', Courier, monospace;
-        }
-
-        /* Lienzo para la animación Matrix */
-        #matrixCanvas {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            z-index: 1;
-        }
-
-        /* Capa de la interfaz principal */
-        .ui-layer {
-            position: relative;
-            z-index: 2;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
-            color: #0f0;
-            text-align: center;
-            padding: 20px;
-        }
-
-        .btn-iniciar {
-            padding: 15px 30px;
-            font-size: 1.2em;
-            background-color: #00ff00;
-            color: #000;
-            font-weight: bold;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            box-shadow: 0 0 15px #00ff00;
-            margin-top: 20px;
-        }
-
-        /* Estado bloqueado */
-        body.bloqueado {
-            touch-action: none !important;
-            pointer-events: none !important;
-        }
-
-        .alerta-texto {
-            display: none;
-            color: #ff0000;
-            font-size: 2.5em;
-            font-weight: bold;
-            text-shadow: 0 0 10px #ff0000;
-            animation: parpadeo 0.5s infinite alternate;
-        }
-
-        @keyframes parpadeo {
-            from { opacity: 1; }
-            to { opacity: 0.2; }
-        }
-    </style>
-</head>
-<body>
-
-    <canvas id="matrixCanvas"></canvas>
-
-    <div class="ui-layer" id="interfaz">
-        <h1 id="titulo">SISTEMA MATRIX</h1>
-        <p id="subtitulo">Presiona el botón para iniciar el análisis...</p>
-        <button class="btn-iniciar" id="btnAccion" onclick="iniciarEfecto()">INICIAR</button>
-        <div id="mensajeInfeccion" class="alerta-texto">
-            YOU ARE AN IDIOT! <br> JAJAJA
-        </div>
-    </div>
-
-    <script>
-        // --- Animación Lluvia Matrix ---
-        const canvas = document.getElementById('matrixCanvas');
-        const ctx = canvas.getContext('2d');
-
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
-
-        const letras = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%^&*()*&^%';
-        const fontSize = 16;
-        const columnas = Math.floor(canvas.width / fontSize);
-        const gotas = Array(columnas).fill(1);
-
-        function dibujarMatrix() {
-            ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-            ctx.fillStyle = '#0F0';
-            ctx.font = fontSize + 'px monospace';
-
-            for (let i = 0; i < gotas.length; i++) {
-                const texto = letras.charAt(Math.floor(Math.random() * letras.length));
-                ctx.fillText(texto, i * fontSize, gotas[i] * fontSize);
-
-                if (gotas[iPara crear una página con el clásico fondo verde con código descendente al estilo **Matrix**, que al cabo de unos segundos (o tras tocar la pantalla para permitir el audio) empiece a reproducir la melodía/audio característico con el mensaje *"You are an idiot"*, puedes actualizar tu archivo `index.html` con la estructura base en HTML, CSS y JavaScript.
-
-El efecto de lluvia de Matrix se crea utilizando un elemento `<canvas>` que dibuja caracteres en verde sobre fondo negro, mientras que el audio se reproduce en bucle con el temporizador mediante la API de audio de JavaScript.
-
-### Código para tu `index.html`
-
-```html
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>System Access</title>
+    <title>Laboratorio Matrix</title>
     <style>
         * {
             margin: 0;
@@ -140,7 +19,6 @@ El efecto de lluvia de Matrix se crea utilizando un elemento `<canvas>` que dibu
             font-family: monospace;
         }
 
-        /* Canvas de Matrix */
         #matrixCanvas {
             position: absolute;
             top: 0;
@@ -150,7 +28,6 @@ El efecto de lluvia de Matrix se crea utilizando un elemento `<canvas>` que dibu
             z-index: 1;
         }
 
-        /* Superposición con texto y alerta */
         .overlay {
             position: absolute;
             top: 0;
@@ -164,11 +41,9 @@ El efecto de lluvia de Matrix se crea utilizando un elemento `<canvas>` que dibu
             align-items: center;
             text-align: center;
             color: #0f0;
-            pointer-events: none;
         }
 
         .btn-start {
-            pointer-events: auto;
             padding: 15px 30px;
             font-size: 1.2rem;
             background-color: #0f0;
@@ -183,15 +58,15 @@ El efecto de lluvia de Matrix se crea utilizando un elemento `<canvas>` que dibu
 
         .mensaje-idiot {
             display: none;
-            font-size: 3rem;
+            font-size: 2.5rem;
             color: #fff;
             text-shadow: 0 0 10px #ff0000, 0 0 20px #ff0000;
-            animation: blink 0.5s infinite alternate;
+            animation: blink 0.4s infinite alternate;
         }
 
         @keyframes blink {
             from { opacity: 1; transform: scale(1); }
-            to { opacity: 0.7; transform: scale(1.05); }
+            to { opacity: 0.3; transform: scale(1.05); }
         }
     </style>
 </head>
@@ -199,9 +74,9 @@ El efecto de lluvia de Matrix se crea utilizando un elemento `<canvas>` que dibu
 
     <canvas id="matrixCanvas"></canvas>
 
-    <div class="overlay" id="overlay">
-        <h1 id="titulo">SISTEMA INICIALIZADO</h1>
-        <p id="subtitulo">Toca el botón para conectar al nodo...</p>
+    <div class="overlay">
+        <h1 id="titulo">SISTEMA MATRIX</h1>
+        <p id="subtitulo">Presiona para conectar al servidor...</p>
         <button class="btn-start" id="btnIniciar" onclick="iniciarEfecto()">CONECTAR</button>
         <div class="mensaje-idiot" id="mensajeIdiot">
             YOU ARE AN IDIOT!<br>HAHAHAHAHA
@@ -209,7 +84,6 @@ El efecto de lluvia de Matrix se crea utilizando un elemento `<canvas>` que dibu
     </div>
 
     <script>
-        // Configuración del efecto Matrix
         const canvas = document.getElementById('matrixCanvas');
         const ctx = canvas.getContext('2d');
 
@@ -245,38 +119,36 @@ El efecto de lluvia de Matrix se crea utilizando un elemento `<canvas>` que dibu
 
         setInterval(drawMatrix, 33);
 
-        // Reproductor de voz/audio sintetizado ("You are an idiot")
-        function reproducirRisa() {
+        function reproducirAudioBucle() {
             if ('speechSynthesis' in window) {
-                const mensaje = new SpeechSynthesisUtterance("You are an idiot, ha ha ha ha ha");
-                mensaje.lang = 'en-US';
-                mensaje.rate = 1.0;
-                mensaje.pitch = 1.2;
+                window.speechSynthesis.cancel();
                 
-                // Bucle de voz al finalizar
-                mensaje.onend = function() {
-                    setTimeout(() => {
-                        window.speechSynthesis.speak(mensaje);
-                    }, 200);
+                const hablar = () => {
+                    const mensaje = new SpeechSynthesisUtterance("You are an idiot, ha ha ha ha ha");
+                    mensaje.lang = 'en-US';
+                    mensaje.rate = 1.1;
+                    mensaje.pitch = 1.2;
+                    
+                    mensaje.onend = () => {
+                        setTimeout(hablar, 100);
+                    };
+
+                    window.speechSynthesis.speak(mensaje);
                 };
-                
-                window.speechSynthesis.speak(mensaje);
+
+                hablar();
             }
         }
 
         function iniciarEfecto() {
-            // Ocultar botón de inicio
             document.getElementById('btnIniciar').style.display = 'none';
             document.getElementById('titulo').style.display = 'none';
-            document.getElementById('subtitulo').innerText = "Iniciando secuencia...";
+            document.getElementById('subtitulo').innerText = "Cargando...";
 
-            // Esperar 3 segundos para activar la broma
             setTimeout(() => {
                 document.getElementById('subtitulo').style.display = 'none';
                 document.getElementById('mensajeIdiot').style.display = 'block';
-                
-                // Activar audio
-                reproducirRisa();
+                reproducirAudioBucle();
             }, 3000);
         }
     </script>
