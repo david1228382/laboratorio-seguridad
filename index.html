@@ -132,9 +132,9 @@
         </div>
     </div>
 
-    <!-- Carga del MP3 Original con la voz masculina original -->
-    <audio id="audioMp3" loop preload="auto" crossorigin="anonymous">
-        <source src="https://ia800908.us.archive.org/19/items/you-are-an-idiot-sound/You%20Are%20An%20Idiot%20sound.mp3" type="audio/mpeg">
+    <!-- Audio MP3 alojado localmente -->
+    <audio id="audioMp3" loop preload="auto">
+        <source src="idiot.mp3" type="audio/mpeg">
     </audio>
 
     <script>
@@ -176,7 +176,7 @@
         function activarBroma() {
             const audio = document.getElementById('audioMp3');
             
-            // Iniciar la reproducción con el clic directo
+            // Iniciar reproducción tras interacción
             audio.play().catch(e => console.log(e));
 
             document.getElementById('btnBoton').style.display = 'none';
